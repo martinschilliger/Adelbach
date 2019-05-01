@@ -7,7 +7,7 @@
 #
 # Install with this command (from your Pi):
 #
-# curl -L https://raw.githubusercontent.com/martinschilliger/Adelbach/master/auto_install/install.sh | bash
+# curl -L https://github.com/martinschilliger/Adelbach/raw/master/auto_install/install.sh | bash
 # Make sure you have `curl` installed
 
 # -e option instructs bash to immediately exit if any command [1] has a non-zero exit status
@@ -15,6 +15,14 @@
 # instead of continuing the installation with something broken
 set -e
 ######## VARIABLES #########
+
+
+######## TODO #########
+# * Connect to GoPro WiFi, force user to enter the data on install
+# * Add keepalive and ffmpeg-streaming as a services
+# * reconnect on loss of connection
+# * maybe install GoPro Bluetooth to wake up the camera?
+
 
 tmpLog="/tmp/adelbach-install.log"
 instalLogLoc="/etc/adelbach/install.log"
@@ -27,8 +35,9 @@ PKG_CACHE="/var/lib/apt/lists/"
 UPDATE_PKG_CACHE="${PKG_MANAGER} update"
 PKG_INSTALL="${PKG_MANAGER} --yes --no-install-recommends install"
 PKG_COUNT="${PKG_MANAGER} -s -o Debug::NoLocking=true upgrade | grep -c ^Inst || true"
-ADELBACH_DEPS=(git tar wget grep python3-pip)
-###          ###
+ADELBACH_DEPS=(git tar wget grep ffmpeg python3)
+CONFIG_FILE_PATH="/etc/adelbach/streamer.conf"
+
 
 adelbachGitUrl="https://github.com/martinschilliger/Adelbach.git"
 adelbachFilesDir="/etc/.adelbach"
@@ -53,26 +62,17 @@ skipSpaceCheck=false
 reconfigure=false
 runUnattended=false
 
-# # Find IP used to route to outside world
-#
-# IPv4dev=$(ip route get 8.8.8.8 | awk '{for(i=1;i<=NF;i++)if($i~/dev/)print $(i+1)}')
-# IPv4addr=$(ip route get 8.8.8.8| awk '{print $7}')
-# IPv4gw=$(ip route get 8.8.8.8 | awk '{print $3}')
-#
-# availableInterfaces=$(ip -o link | grep "state UP" | awk '{print $2}' | cut -d':' -f1 | cut -d'@' -f1)
-# dhcpcdFile=/etc/dhcpcd.conf
-
 # Next see if we are on a tested and supported OS
 function noOS_Support() {
     whiptail --msgbox --backtitle "INVALID OS DETECTED" --title "Invalid OS" "We have not been able to detect a supported OS.
-Currently this installer supports Raspbian and Debian (Jessie and Stretch), Devuan (Jessie) and Ubuntu from 14.04 (trusty) to 17.04 (zesty).
+Currently this installer should support Raspbian and Debian (Jessie and Stretch), Devuan (Jessie) and Ubuntu from 14.04 (trusty) to 17.04 (zesty).
 If you think you received this message in error, you can post an issue on the GitHub at https://github.com/martinschilliger/Adelbach/issues." ${r} ${c}
     exit 1
 }
 
 function maybeOS_Support() {
     if (whiptail --backtitle "Not Supported OS" --title "Not Supported OS" --yesno "You are on an OS that we have not tested but MAY work.
-Currently this installer supports Raspbian and Debian (Jessie and Stretch), Devuan (Jessie) and Ubuntu from 14.04 (trusty) to 17.04 (zesty).
+Currently this installer should support Raspbian and Debian (Jessie and Stretch), Devuan (Jessie) and Ubuntu from 14.04 (trusty) to 17.04 (zesty).
 Would you like to continue anyway?" ${r} ${c}) then
         echo "::: Did not detect perfectly supported OS but,"
         echo "::: Continuing installation at user's own risk..."
@@ -185,7 +185,7 @@ chooseUser() {
         for desiredUser in ${chooseUserOptions}; do
             adelbachUser=${desiredUser}
             echo "::: Using User: $adelbachUser"
-            echo "${adelbachUser}" > /tmp/pivpnUSR
+            echo "${adelbachUser}" > /tmp/adelbachUSR
         done
     else
         echo "::: Cancel selected, exiting...."
@@ -229,7 +229,7 @@ verifyFreeDiskSpace() {
 
 
 installScripts() {
-    # Install the scripts from /etc/.pivpn to their various locations
+    # Install the scripts from /etc/.adelbach to their various locations
     $SUDO echo ":::"
     $SUDO echo -n "::: Installing scripts to /opt/adelbach..."
     if [ ! -d /opt/adelbach ]; then
@@ -237,20 +237,14 @@ installScripts() {
         $SUDO chown "$adelbachUser":root /opt/adelbach
         $SUDO chmod u+srwx /opt/adelbach
     fi
-    # $SUDO cp /etc/.pivpn/scripts/makeOVPN.sh /opt/pivpn/makeOVPN.sh
-    # $SUDO cp /etc/.pivpn/scripts/clientStat.sh /opt/pivpn/clientStat.sh
-    # $SUDO cp /etc/.pivpn/scripts/listOVPN.sh /opt/pivpn/listOVPN.sh
-    # $SUDO cp /etc/.pivpn/scripts/removeOVPN.sh /opt/pivpn/removeOVPN.sh
-    # $SUDO cp /etc/.pivpn/scripts/uninstall.sh /opt/pivpn/uninstall.sh
-    # $SUDO cp /etc/.pivpn/scripts/pivpnDebug.sh /opt/pivpn/pivpnDebug.sh
-    # $SUDO cp /etc/.pivpn/scripts/fix_iptables.sh /opt/pivpn/fix_iptables.sh
-    # $SUDO chmod 0755 /opt/pivpn/{makeOVPN,clientStat,listOVPN,removeOVPN,uninstall,pivpnDebug,fix_iptables}.sh
-    # $SUDO cp /etc/.pivpn/pivpn /usr/local/bin/pivpn
-    # $SUDO chmod 0755 /usr/local/bin/pivpn
-    # $SUDO cp /etc/.pivpn/scripts/bash-completion /etc/bash_completion.d/pivpn
-    # . /etc/bash_completion.d/pivpn
-    # # Copy interface setting for debug
-    # $SUDO cp /tmp/pivpnINT /etc/pivpn/pivpnINTERFACE
+    $SUDO cp /etc/.adelbach/adelbach.sh /usr/local/bin/adelbach
+    $SUDO chmod 0755 /usr/local/bin/adelbach
+    $SUDO cp /etc/.adelbach/scripts/streamer.sh /opt/adelbach/streamer.sh
+    $SUDO chmod 0755 /opt/adelbach/streamer.sh
+    $SUDO cp /etc/.adelbach/scripts/keepalive.sh /opt/adelbach/keepalive.sh
+    $SUDO chmod 0755 /opt/adelbach/keepalive.sh
+    $SUDO cp /etc/.adelbach/scripts/uninstall.sh /opt/adelbach/uninstall.sh
+    $SUDO chmod 0755 /opt/adelbach/uninstall.sh
 
     $SUDO echo " done."
 }
@@ -371,6 +365,30 @@ update_repo() {
     fi
 }
 
+writeConfig(){
+  # writeConfig TARGET_KEY REPLACEMENT_VALUE
+    $SUDO sed -i "" "s/\(${1} *= *\).*/\1${2}/" $CONFIG_FILE_PATH
+}
+
+confAdelbach(){
+  # Load settings
+  source $CONFIG_FILE_PATH
+
+  if NEW_SERVER_URL=$(whiptail --title "Enter the server URL" --inputbox "Enter the URL of the server, starting with \"rtmp://\"." ${r} ${c} $SERVER_URL 3>&1 1>&2 2>&3)
+  then
+    writeConfig "SERVER_URL" $NEW_SERVER_URL
+  else
+    exit 1
+  fi
+
+  if NEW_SERVER_KEY=$(whiptail --title "Enter the server key" --inputbox "Enter the key for the server." ${r} ${c} $SERVER_KEY 3>&1 1>&2 2>&3)
+  then
+    writeConfig "SERVER_KEY" $NEW_SERVER_KEY
+  else
+    exit 1
+  fi
+}
+
 confUnattendedUpgrades() {
     cd /etc/apt/apt.conf.d
 
@@ -439,9 +457,14 @@ if \$programname == 'adelbach-server' then stop" | $SUDO tee /etc/rsyslog.d/30-a
 installAdelbach() {
     stopServices
     $SUDO mkdir -p /etc/adelbach/
+    $SUDO cp /tmp/adelbachUSR /etc/adelbach/INSTALL_USER
+    $SUDO cp /tmp/DET_PLATFORM /etc/adelbach/DET_PLATFORM
+    # Write config file for server using the example-config.txt file
+    $SUDO cp /etc/.adelbach/example-config.txt $CONFIG_FILE_PATH
     confUnattendedUpgrades
     installScripts
     confLogging
+    confAdelbach
 }
 
 updateAdelbach() {
@@ -453,7 +476,7 @@ updateAdelbach() {
 
 displayFinalMessage() {
     # Final completion message to user
-    whiptail --msgbox --backtitle "Make it so." --title "Installation Complete!" "The install log is in /etc/adelbach." ${r} ${c}
+    whiptail --msgbox --backtitle "Make it so." --title "Installation Complete!" "The install log is in /etc/adelbach. Consider running sudo raspi-config for additional configurations (please don't touch WiFi!)." ${r} ${c}
     if (whiptail --title "Reboot" --yesno --defaultno "It is strongly recommended you reboot after installation.  Would you like to reboot now?" ${r} ${c}); then
         whiptail --title "Rebooting" --msgbox "The system will now reboot." ${r} ${c}
         printf "\nRebooting system...\n"
@@ -585,7 +608,7 @@ main() {
     echo "::: Install Complete..."
 
 
-    #Move the install log into /etc/pivpn for storage
+    #Move the install log into /etc/adelbach for storage
     $SUDO mv ${tmpLog} ${instalLogLoc}
 
     echo "::: Restarting services..."
@@ -617,3 +640,6 @@ main() {
     echo ":::"
     echo "::: The install log is located at: ${instalLogLoc}"
 }
+
+# start the script
+main "$@"

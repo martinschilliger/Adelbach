@@ -1,0 +1,19 @@
+# Configuration file for adelbach. This is the example configuration known to run good an a Raspberry Pi 3.
+# Feel free to change and please share your experience in a GitHub issue!
+#
+# You can find descriptions and examples of the values here:
+# https://trac.ffmpeg.org/wiki/EncodingForStreamingSites
+
+
+VBR="1M"
+FPS="24"
+QUAL="ultrafast" # veryfast, medium
+AUDIO_CHANNELS=1
+LOGLEVEL="quiet"
+
+SERVER_KEY="XXXX-XXXX-XXXX-XXXX"
+SERVER_URL="rtmp://a.rtmp.youtube.com/live2"
+RTMP_URL="${SERVER_URL}/${SERVER_KEY}"
+
+GOPRO_IP="10.5.5.9"
+SOURCE="rtp://${GOPRO_IP}:8554" # udp://127.0.0.1:10000 for some other GoPro?

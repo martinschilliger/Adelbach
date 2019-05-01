@@ -16,9 +16,9 @@
 
 Those who want to get started quickly and conveniently may install Pi-hole using the following command:
 
-### `curl -sSL https://install.pi-hole.net | bash`
+### `curl -L https://github.com/martinschilliger/Adelbach/raw/master/auto_install/install.sh | bash`
 
-⚠️ [Piping to `bash` is controversial](https://pi-hole.net/2016/07/25/curling-and-piping-to-bash). It prevents you from [reading code that is about to run](https://github.com/martinschilliger/Adelbach/master/auto_install/install.sh) on your system.
+⚠️ [Piping to `bash` is controversial](https://pi-hole.net/2016/07/25/curling-and-piping-to-bash). It prevents you from [reading code that is about to run](https://github.com/martinschilliger/Adelbach/tree/master/auto_install/install.sh) on your system.
 
 <!-- # Depends on
 * [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/) -->
@@ -26,7 +26,9 @@ Those who want to get started quickly and conveniently may install Pi-hole using
 # 💁🏻 See also
 
 - [gopro-py-api](https://github.com/KonradIT/gopro-py-api) by KonradIT.
+- [gopro-console](https://github.com/m6c7l/gopro-console) by m6c7l
+- [gopro-youtube-livestream](https://github.com/lamvann/gopro-youtube-livestream) by lamvann
 
-# Donation
+# 🙏 Donation
 
-If you want to donate, please look out for projects in need or consider you local salvation army 🙏. Thank you!
+If you want to donate, please look out for projects in need or consider you local [salvation army](https://www.salvationarmy.org). Thank you!
