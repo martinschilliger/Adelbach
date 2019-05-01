@@ -2,7 +2,7 @@
 
 📹 Use your GoPro with a RaspberryPi for RTMP streaming – reliable 🧲
 
-🏗️ Work in progress! Well, «reliable» is the goal, right now it's work in progress and more or less a copy of the PiVPN script. Feel free to help and contribute! 😊
+🏗️ **Work in progress**! Well, «reliable» is the goal, right now it's work in progress and more or less a copy of the PiVPN script. Feel free to help and contribute! 😊
 
 # 🕹️ Installing
 
