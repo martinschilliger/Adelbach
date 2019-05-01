@@ -2,9 +2,7 @@
 
 📹 Use your GoPro with a RaspberryPi for RTMP streaming – reliable 🧲
 
-## 🏗️ Work in progress
-
-Well, «reliable» is the goal, right now it's work in progress and more or less a copy of the PiVPN script. Feel free to help and contribute! 😊
+🏗️ Work in progress! Well, «reliable» is the goal, right now it's work in progress and more or less a copy of the PiVPN script. Feel free to help and contribute! 😊
 
 # 🕹️ Installing
 
@@ -20,9 +18,7 @@ Those who want to get started quickly and conveniently may install Pi-hole using
 
 ### `curl -sSL https://install.pi-hole.net | bash`
 
-## ⚠️ [Piping to `bash` is controversial](https://pi-hole.net/2016/07/25/curling-and-piping-to-bash)
-
-It prevents you from [reading code that is about to run](https://github.com/martinschilliger/Adelbach/master/auto_install/install.sh) on your system.
+⚠️ [Piping to `bash` is controversial](https://pi-hole.net/2016/07/25/curling-and-piping-to-bash). It prevents you from [reading code that is about to run](https://github.com/martinschilliger/Adelbach/master/auto_install/install.sh) on your system.
 
 <!-- # Depends on
 * [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/) -->
