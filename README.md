@@ -30,3 +30,7 @@ It prevents you from [reading code that is about to run](https://github.com/mart
 # 💁🏻 See also
 
 - [gopro-py-api](https://github.com/KonradIT/gopro-py-api) by KonradIT.
+
+# Donation
+
+If you want to donate, please look out for projects in need or consider you local salvation army 🙏. Thank you!
