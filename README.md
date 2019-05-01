@@ -28,6 +28,7 @@ Those who want to get started quickly and conveniently may install Pi-hole using
 - [gopro-py-api](https://github.com/KonradIT/gopro-py-api) by KonradIT.
 - [gopro-console](https://github.com/m6c7l/gopro-console) by m6c7l
 - [gopro-youtube-livestream](https://github.com/lamvann/gopro-youtube-livestream) by lamvann
+- [H7 – GoPro Live Streaming](http://community.h7.org/topic/577/gopro-live-streaming) by Yatko
 
 # 🙏 Donation
 
