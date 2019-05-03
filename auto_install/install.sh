@@ -32,7 +32,7 @@ PKG_CACHE="/var/lib/apt/lists/"
 UPDATE_PKG_CACHE="${PKG_MANAGER} update"
 PKG_INSTALL="${PKG_MANAGER} --yes --no-install-recommends install"
 PKG_COUNT="${PKG_MANAGER} -s -o Debug::NoLocking=true upgrade | grep -c ^Inst || true"
-ADELBACH_DEPS=(git tar wget grep ffmpeg python3)
+ADELBACH_DEPS=(git tar wget grep ffmpeg)
 CONFIG_FILE_PATH="/etc/adelbach/streamer.conf"
 
 
