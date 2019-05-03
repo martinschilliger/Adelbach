@@ -3,14 +3,18 @@
 . /etc/adelbach/streamer.conf
 
 
-function runFunc {
-  /opt/adelbach/streamer.sh
+function streamFunc {
+  #Send GoPro Hero4 UDP keep-alive packets
+  /opt/adelbach/keepalive.sh &
 
   #Refresh GoPro real-time A/V stream
   curl "http://${GOPRO_IP}/gp/gpControl/execute?p1=gpStream&a1=proto_v2&c1=restart"
 
-  #Send GoPro Hero4 UDP keep-alive packets
-  /opt/adelbach/keepalive.sh
+  /opt/adelbach/streamer.sh &
+
+  #Constantly check for wifi
+  /opt/adelbach/wifi_watchdog.sh &
+
 }
 
 function uninstallFunc {
@@ -35,7 +39,7 @@ function helpFunc {
   echo "::: Usage: adelbach <command>"
   echo ":::"
   echo "::: Commands:"
-  echo ":::  -r, run          Start running stream"
+  echo ":::  -s, stream          Start running stream"
   echo ":::  -c, config       Show the configuration file"
   echo ":::  -h, help         Show this help dialog"
   echo ":::  -u, uninstall    Uninstall Adelbach from your system!"
@@ -48,7 +52,7 @@ fi
 
 # Handle redirecting to specific functions based on arguments
 case "$1" in
-"-r" | "run"               ) runFunc;;
+"-s" | "stream"               ) streamFunc;;
 "-c" | "config"               ) printconfigFunc;;
 "-h" | "help"               ) helpFunc;;
 "-u" | "uninstall"          ) uninstallFunc;;

@@ -19,4 +19,6 @@ SERVER_URL="rtmp://a.rtmp.youtube.com/live2"
 RTMP_URL="${SERVER_URL}/${SERVER_KEY}"
 
 GOPRO_IP="10.5.5.9"
-SOURCE="rtp://${GOPRO_IP}:8554" # udp://127.0.0.1:10000 for some other GoPro?
+SOURCE="rtp://${GOPRO_IP}:8554"
+# This SSID is only used for the watchdog, needs to be configured in /etc/wpa_supplicant/wpa_supplicant.conf !
+GOPRO_SSID="GP42001337"
