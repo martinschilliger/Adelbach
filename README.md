@@ -8,9 +8,38 @@
 
 ## Getting started
 
-- Raspberry Pi with [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/) (Lite has better performance because there is less overhead) [installed](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). Make sure you have Internet on the Ethernet port, as WiFi is used to communicate with the GoPro Camera. Create an empty file named «ssh» on the boot partition to [enable ssh access](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md).
-- Connect to your Pi via SSH, head over to the [documentation](https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md) if you need help.
-- TODO: Curl installed?
+### Short Version:
+
+- Take a Raspberry Pi with [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/) (Lite has better performance because there is less overhead) [installed](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). Make sure you have **Internet on the Ethernet port**, as WiFi is used to communicate with the GoPro Camera.
+- Create an empty file named «ssh» on the boot partition to [enable ssh access](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md).Connect to your Pi via SSH, head over to the [documentation](https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md) if you need help.
+- Make shur:e _Curl_ is installed and head on to [One-Step Automated Install](https://github.com/martinschilliger/Adelbach#-one-step-automated-install).
+
+### Long Version
+
+(Based on the excellent work of [KonradIT](https://github.com/KonradIT/goprowifihack/blob/master/Bluetooth/Platforms/RaspberryPi.md#how-to))
+
+1. Download latest [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/)
+
+2. Flash it onto SD card using [balena Etcher](https://www.balena.io/etcher/)
+
+3. After flashing, create an empty `ssh` file in the root of the SD card (volume _boot_) to enable ssh access. You can use a text editor or terminal:
+
+   ```shell
+   cd /Volumes/boot/
+   touch ssh
+   ```
+
+4. Turn on Raspberry and SSH into it (default username `pi`, password `raspberry`).
+
+```shell
+ssh pi@raspberrypi.local
+```
+
+5. For comfort reasons I always copy my id and remove the password 🤷🏻‍♂️.
+
+```shell
+ssh-copy-id pi@raspberrypi.local
+```
 
 ## 🛋 One-Step Automated Install:
 
