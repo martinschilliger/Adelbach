@@ -7,7 +7,7 @@ function runFunc {
   /opt/adelbach/streamer.sh
 
   #Refresh GoPro real-time A/V stream
-  curl "http://${GOPRO_IP}/gp/gpControl/execute?p1=gpStream&c1=restart"
+  curl "http://${GOPRO_IP}/gp/gpControl/execute?p1=gpStream&a1=proto_v2&c1=restart"
 
   #Send GoPro Hero4 UDP keep-alive packets
   /opt/adelbach/keepalive.sh
