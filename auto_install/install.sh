@@ -18,9 +18,8 @@ set -e
 
 
 ######## TODO #########
-# * Add keepalive and ffmpeg-streaming as a services
+# * Add keepalive and ffmpeg-streaming as a services => Done automatically??
 # * reconnect on loss of connection
-# * Add GitHub tags
 
 tmpLog="/tmp/adelbach-install.log"
 instalLogLoc="/etc/adelbach/install.log"
