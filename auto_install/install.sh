@@ -18,11 +18,9 @@ set -e
 
 
 ######## TODO #########
-# * Connect to GoPro WiFi, force user to enter the data on install
 # * Add keepalive and ffmpeg-streaming as a services
 # * reconnect on loss of connection
-# * maybe install GoPro Bluetooth to wake up the camera?
-
+# * Add GitHub tags
 
 tmpLog="/tmp/adelbach-install.log"
 instalLogLoc="/etc/adelbach/install.log"
@@ -237,14 +235,15 @@ installScripts() {
         $SUDO chown "$adelbachUser":root /opt/adelbach
         $SUDO chmod u+srwx /opt/adelbach
     fi
-    $SUDO cp /etc/.adelbach/adelbach.sh /usr/local/bin/adelbach
-    $SUDO chmod 0755 /usr/local/bin/adelbach
     $SUDO cp /etc/.adelbach/scripts/streamer.sh /opt/adelbach/streamer.sh
     $SUDO chmod 0755 /opt/adelbach/streamer.sh
     $SUDO cp /etc/.adelbach/scripts/keepalive.sh /opt/adelbach/keepalive.sh
     $SUDO chmod 0755 /opt/adelbach/keepalive.sh
     $SUDO cp /etc/.adelbach/scripts/uninstall.sh /opt/adelbach/uninstall.sh
     $SUDO chmod 0755 /opt/adelbach/uninstall.sh
+
+    $SUDO cp /etc/.adelbach/adelbach.sh /usr/local/bin/adelbach
+    $SUDO chmod 0755 /usr/local/bin/adelbach
 
     $SUDO echo " done."
 }
@@ -374,6 +373,7 @@ confAdelbach(){
   # Load settings
   source $CONFIG_FILE_PATH
 
+  # Streaming URL and KEY
   if NEW_SERVER_URL=$(whiptail --title "Enter the server URL" --inputbox "Enter the URL of the server, starting with \"rtmp://\"." ${r} ${c} $SERVER_URL 3>&1 1>&2 2>&3)
   then
     writeConfig "SERVER_URL" $NEW_SERVER_URL
