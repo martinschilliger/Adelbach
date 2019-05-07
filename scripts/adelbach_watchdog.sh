@@ -58,7 +58,7 @@ stopAdelbach(){
 }
 
 while [ 1 ]; do
-	ping -c 1 $GOPRO_IP & wait $!
+  curl -sSf http://10.5.5.9/gp/gpControl/info > /dev/null & wait $!
 	if [ $? != 0 ]; then
 		log "Could not find GoPro. Attempting restart WiFi and ${SCRIPT}"
     stopAdelbach
