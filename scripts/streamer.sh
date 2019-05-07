@@ -3,7 +3,6 @@
 . /etc/adelbach/streamer.conf
 
 #Start streaming to rtmp with custom URL
-# the «&» at the end is important for also start the keepalive script
 
 ffmpeg \
   -thread_queue_size 2048 -fflags nobuffer -f:v mpegts -probesize 65536 \

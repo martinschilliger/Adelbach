@@ -53,8 +53,7 @@ startAdelbach(){
 
 stopAdelbach(){
   log "Stopping ${SCRIPT}"
-  pkill -x "$SCRIPT"
-  pkill -x ffmpeg
+  $SCRIPT -k
 }
 
 while [ 1 ]; do

@@ -4,14 +4,20 @@
 
 
 function streamFunc {
-  #Send GoPro Hero4 UDP keep-alive packets
-  /opt/adelbach/keepalive.sh &
-
   #Refresh GoPro real-time A/V stream
   curl "http://${GOPRO_IP}/gp/gpControl/execute?p1=gpStream&a1=proto_v2&c1=restart"
 
   /opt/adelbach/streamer.sh &
 
+  #Send GoPro keep-alive packets
+  /opt/adelbach/keepalive.sh &
+}
+
+function killFunc {
+  pkill -x adelbach
+  pkill -f "/bin/bash /opt/adelbach/keepalive.sh"
+  pkill -f "sleep 2.5"
+  pkill -x ffmpeg
 }
 
 function uninstallFunc {
@@ -37,6 +43,7 @@ function helpFunc {
   echo ":::"
   echo "::: Commands:"
   echo ":::  -s, stream       Start running stream"
+  echo ":::  -k, kill         Stop running stream"
   echo ":::  -c, config       Show the configuration file"
   echo ":::  -h, help         Show this help dialog"
   echo ":::  -u, uninstall    Uninstall Adelbach from your system!"
@@ -49,8 +56,9 @@ fi
 
 # Handle redirecting to specific functions based on arguments
 case "$1" in
-"-s" | "stream"               ) streamFunc;;
-"-c" | "config"               ) printconfigFunc;;
+"-s" | "stream"             ) streamFunc;;
+"-k" | "kill"               ) killFunc;;
+"-c" | "config"             ) printconfigFunc;;
 "-h" | "help"               ) helpFunc;;
 "-u" | "uninstall"          ) uninstallFunc;;
 "-v"                        ) versionFunc;;
