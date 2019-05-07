@@ -14,17 +14,21 @@
 
 2. Flash it onto SD card using [balena Etcher](https://www.balena.io/etcher/).
 
-3. After flashing, create an empty `ssh` file in the root of the SD card (volume _boot_) to enable ssh access. You can use a text editor or terminal:
+3. Remount the SD card (balena Etcher unmounted it). If you don't know how, just unplug and replug it to your computer. 🙊
+
+4. After flashing, create an empty `ssh` file in the root of the SD card (volume _boot_) to enable ssh access. You can use a text editor or terminal:
 
    ```shell
    cd /Volumes/boot/
    touch ssh
    ```
 
-4. Turn on Raspberry and SSH into it (default username `pi`, password `raspberry`). Make sure you have **Internet on the Ethernet port**, as WiFi is used to communicate with the GoPro Camera. Head over to the [documentation](https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md) if you need help.
+5. Unmount the SD Card and put it into your Raspberry Pi, then turn it on. Make sure you have **Internet on the Ethernet port**, as WiFi is used to communicate with the GoPro Camera. SSH into it (default username `pi`, password `raspberry`). Head over to the [documentation](https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md) if you need help.
 
 ```shell
 ssh pi@raspberrypi.local
+# make shure to change the password
+passwd
 ```
 
 5. For comfort and security reasons I always copy my id and remove the password 🤷🏻‍♂️.
@@ -33,13 +37,11 @@ ssh pi@raspberrypi.local
 ssh-copy-id pi@raspberrypi.local
 ```
 
-6. Make shure _curl_ is installed and head on to [One-Step Automated Install](https://github.com/martinschilliger/Adelbach#-one-step-automated-install).
-
 ## 🛋 One-Step Automated Install:
 
 Those who want to get started quickly and conveniently may install Pi-hole using the following command:
 
-#### `curl -L https://github.com/martinschilliger/Adelbach/raw/master/auto_install/install.sh | bash`
+#### `curl -L https://cdn.jsdelivr.net/gh/martinschilliger/Adelbach/auto_install/install.sh | bash`
 
 ⚠️ [Piping to `bash` is controversial](https://pi-hole.net/2016/07/25/curling-and-piping-to-bash). It prevents you from [reading code that is about to run](https://github.com/martinschilliger/Adelbach/tree/master/auto_install/install.sh) on your system.
 
