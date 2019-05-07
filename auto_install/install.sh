@@ -16,11 +16,6 @@
 set -e
 ######## VARIABLES #########
 
-
-######## TODO #########
-# * Add keepalive and ffmpeg-streaming as a services => Done automatically??
-# * reconnect on loss of connection
-
 tmpLog="/tmp/adelbach-install.log"
 instalLogLoc="/etc/adelbach/install.log"
 setupVars=/etc/adelbach/setupVars.conf
