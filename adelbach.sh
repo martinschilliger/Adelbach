@@ -39,7 +39,7 @@ function helpFunc {
   echo "::: Usage: adelbach <command>"
   echo ":::"
   echo "::: Commands:"
-  echo ":::  -s, stream          Start running stream"
+  echo ":::  -s, stream       Start running stream"
   echo ":::  -c, config       Show the configuration file"
   echo ":::  -h, help         Show this help dialog"
   echo ":::  -u, uninstall    Uninstall Adelbach from your system!"
