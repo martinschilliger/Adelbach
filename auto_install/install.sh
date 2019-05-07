@@ -389,7 +389,8 @@ update_repo() {
 
 writeConfig(){
   # writeConfig TARGET_KEY REPLACEMENT_VALUE
-    $SUDO sed -i "" "s/\(${1} *= *\).*/\1${2}/" $CONFIG_FILE_PATH
+  # idea with # delimiter from https://stackoverflow.com/a/16778841/1145706
+    $SUDO sed -i "" "s#\(${1} *= *\).*#\1\"${2}\"#" $CONFIG_FILE_PATH
 }
 
 confAdelbach(){
