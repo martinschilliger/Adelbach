@@ -472,8 +472,8 @@ EOT
 }
 
 confLogging() {
-  echo "if \$programname == 'adelbach-server' then /var/log/adelbach.log
-if \$programname == 'adelbach-server' then stop" | $SUDO tee /etc/rsyslog.d/30-adelbach.conf > /dev/null
+  echo "if \$programname == 'adelbach' then /var/log/adelbach.log
+if \$programname == 'adelbach' then stop" | $SUDO tee /etc/rsyslog.d/30-adelbach.conf > /dev/null
 
   echo "/var/log/adelbach.log
 {

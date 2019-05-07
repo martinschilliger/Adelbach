@@ -24,7 +24,7 @@ NAME=adelbach_watchdog
 DAEMON=/opt/adelbach/$NAME.sh
 DAEMON_PS=$NAME.sh # TODO: not shure if this is correct! => it was /[r]oot/$NAME.sh
 DAEMON_ARGS="--options args"
-PIDFILE=/var/run/$NAME.pid
+#PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
 #Include functions
