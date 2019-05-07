@@ -58,6 +58,7 @@ Adelbach could do more. For example the configuration of ffmpeg could be fixed w
 - [goprowifihack](https://github.com/KonradIT/goprowifihack) also by KonradIT. Espacially [Livestreaming.md](https://github.com/KonradIT/goprowifihack/blob/master/HERO4/Livestreaming.md) looks interesting.- [gopro-console](https://github.com/m6c7l/gopro-console) by m6c7l
 - [gopro-youtube-livestream](https://github.com/lamvann/gopro-youtube-livestream) by lamvann
 - [H7 – GoPro Live Streaming](http://community.h7.org/topic/577/gopro-live-streaming) by Yatko
+- [WiFi Watchdog Gist](https://gist.github.com/giu1io/d8d4695325a8d5cc429f) by giu1io
 
 # 🙏 Donation
 

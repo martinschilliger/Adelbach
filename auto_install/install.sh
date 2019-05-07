@@ -414,10 +414,10 @@ confAdelbach(){
 
   # Connect to the GoPro WiFi
   # TODO: Do we also have to set the country code? For Raspberry Pi 3 B+?
-  if CAMERA_NAME=$(whiptail --title "Find camera name" --inputbox "Now we want to connect to the GoPro WiFi. Take your camera, swipe down and open Settings > Connections > Camera Info. There you will find the name of the camera that is also used as WiFi SSID." ${r} ${c} "GP42001337" 3>&1 1>&2 2>&3)
+  if CAMERA_NAME=$(whiptail --title "Find camera name" --inputbox "Now we want to connect to the GoPro WiFi. Take your camera, swipe down and open Settings > Connections > Connect Device > GoPro App and tap the small info button on the top right. There you will find the name of the camera that is also used as WiFi SSID." ${r} ${c} "GP42001337" 3>&1 1>&2 2>&3)
   then
     writeConfig "GOPRO_SSID" $CAMERA_NAME
-    if CAMERA_PW=$(whiptail --title "Find camera password" --inputbox "Now we also need the password. You can find it also in Settings > Connections > Camera Info. It normally contains a word and a four numbers." ${r} ${c} "wheel2260" 3>&1 1>&2 2>&3)
+    if CAMERA_PW=$(whiptail --title "Find camera password" --inputbox "Now we also need the password. You can find it also in Settings > Connections > Connect Device > GoPro App and the tap on the small info button. It normally contains a word and a four numbers. Leave this window open for Adelbach to connect!" ${r} ${c} "wheel2260" 3>&1 1>&2 2>&3)
     then
       # now write this down to the network configuration
       echo "
@@ -535,7 +535,7 @@ updateAdelbach() {
 displayFinalMessage() {
     # Final completion message to user
     whiptail --msgbox --backtitle "Make it so." --title "Installation Complete!" "The install log is in /etc/adelbach. Consider running sudo raspi-config for additional configurations (please don't touch WiFi!)." ${r} ${c}
-    whiptail --msgbox --backtitle "Make it so." --title "Installation Complete!" "Make shure the GoPro WiFi is up and running! For that connect via GoPro App. TODO: Make that via Bluetooth from the Pi also! :-)" ${r} ${c}
+    whiptail --msgbox --backtitle "Make it so." --title "Installation Complete!" "Make shure the GoPro WiFi is up and running! Swipe down on the camera and open Settings > Connections > Connect Device > GoPro App. Maybe a later version of Adelbach could do that magically! :-)" ${r} ${c}
     if (whiptail --title "Reboot" --yesno --defaultno "It is strongly recommended you reboot after installation.  Would you like to reboot now?" ${r} ${c}); then
         whiptail --title "Rebooting" --msgbox "The system will now reboot." ${r} ${c}
         printf "\nRebooting system...\n"
