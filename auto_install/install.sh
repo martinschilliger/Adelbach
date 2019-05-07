@@ -500,6 +500,18 @@ if \$programname == 'adelbach' then stop" | $SUDO tee /etc/rsyslog.d/30-adelbach
   esac
 }
 
+finalExports() {
+    # Update variables in setupVars.conf file
+    if [ -e "${setupVars}" ]; then
+        $SUDO sed -i.update.bak '/pivpnUser/d;/UNATTUPG/d;' "${setupVars}"
+    fi
+    {
+        echo "pivpnUser=${pivpnUser}"
+        echo "UNATTUPG=${UNATTUPG}"
+    } | $SUDO tee "${setupVars}" > /dev/null
+}
+
+
 installAdelbach() {
     stopServices
     $SUDO mkdir -p /etc/adelbach/
