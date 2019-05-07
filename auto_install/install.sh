@@ -118,7 +118,7 @@ spinner()
 {
     local pid=$1
     local delay=0.50
-    local spinstr='/–\|'
+    local spinstr='/-\|'
     while [ "$(ps a | awk '{print $1}' | grep "${pid}")" ]; do
         local temp=${spinstr#?}
         printf " [%c]  " "${spinstr}"
@@ -414,13 +414,13 @@ confAdelbach(){
 
   # Connect to the GoPro WiFi
   # TODO: Do we also have to set the country code? For Raspberry Pi 3 B+?
-  if CAMERA_NAME=$(whiptail --title "Find camera name" --inputbox "Now we want to connect to the GoPro WiFi. Please open Settings > Connections > Camera Info. There you will find the name of the camera that is also used as WiFi SSID." ${r} ${c} "GP42001337" 3>&1 1>&2 2>&3)
+  if CAMERA_NAME=$(whiptail --title "Find camera name" --inputbox "Now we want to connect to the GoPro WiFi. Take your camera, swipe down and open Settings > Connections > Camera Info. There you will find the name of the camera that is also used as WiFi SSID." ${r} ${c} "GP42001337" 3>&1 1>&2 2>&3)
   then
     writeConfig "GOPRO_SSID" $CAMERA_NAME
     if CAMERA_PW=$(whiptail --title "Find camera password" --inputbox "Now we also need the password. You can find it also in Settings > Connections > Camera Info. It normally contains a word and a four numbers." ${r} ${c} "wheel2260" 3>&1 1>&2 2>&3)
     then
       # now write this down to the network configuration
-      $sudo echo "
+      $SUDO echo "
 
 network={
     ssid=\"${CAMERA_NAME}\"
