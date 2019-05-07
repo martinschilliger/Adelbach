@@ -235,8 +235,8 @@ installScripts() {
     $SUDO chmod 0755 /opt/adelbach/keepalive.sh
     $SUDO cp /etc/.adelbach/scripts/adelbach_watchdog.sh /opt/adelbach/adelbach_watchdog.sh
     $SUDO chmod 0755 /opt/adelbach/adelbach_watchdog.sh
-    $SUDO cp /etc/.adelbach/scripts/adelbach_watchdog_service.sh /etc/init.d/adelbach_watchdog_service.sh
-    $SUDO chmod 0755 /etc/init.d/adelbach_watchdog_service.sh
+    $SUDO cp /etc/.adelbach/scripts/adelbach_watchdog_service.sh /etc/init.d/adelbach
+    $SUDO chmod 0755 /etc/init.d/adelbach
     $SUDO cp /etc/.adelbach/scripts/uninstall.sh /opt/adelbach/uninstall.sh
     $SUDO chmod 0755 /opt/adelbach/uninstall.sh
 
