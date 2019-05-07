@@ -8,19 +8,11 @@
 
 ## Getting started
 
-### Short Version:
-
-- Take a Raspberry Pi with [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/) (Lite has better performance because there is less overhead) [installed](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). Make sure you have **Internet on the Ethernet port**, as WiFi is used to communicate with the GoPro Camera.
-- Create an empty file named «ssh» on the boot partition to [enable ssh access](https://www.raspberrypi.org/documentation/remote-access/ssh/README.md).Connect to your Pi via SSH, head over to the [documentation](https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md) if you need help.
-- Make shure _curl_ is installed and head on to [One-Step Automated Install](https://github.com/martinschilliger/Adelbach#-one-step-automated-install).
-
-### Long Version
-
 (Based also on the excellent work of [KonradIT](https://github.com/KonradIT/goprowifihack/blob/master/Bluetooth/Platforms/RaspberryPi.md#how-to))
 
-1. Download latest [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/)
+1. Download latest [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/) (Lite has better performance because there is less overhead).
 
-2. Flash it onto SD card using [balena Etcher](https://www.balena.io/etcher/)
+2. Flash it onto SD card using [balena Etcher](https://www.balena.io/etcher/).
 
 3. After flashing, create an empty `ssh` file in the root of the SD card (volume _boot_) to enable ssh access. You can use a text editor or terminal:
 
@@ -29,7 +21,7 @@
    touch ssh
    ```
 
-4. Turn on Raspberry and SSH into it (default username `pi`, password `raspberry`).
+4. Turn on Raspberry and SSH into it (default username `pi`, password `raspberry`). Make sure you have **Internet on the Ethernet port**, as WiFi is used to communicate with the GoPro Camera. Head over to the [documentation](https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md) if you need help.
 
 ```shell
 ssh pi@raspberrypi.local
@@ -40,6 +32,8 @@ ssh pi@raspberrypi.local
 ```shell
 ssh-copy-id pi@raspberrypi.local
 ```
+
+6. Make shure _curl_ is installed and head on to [One-Step Automated Install](https://github.com/martinschilliger/Adelbach#-one-step-automated-install).
 
 ## 🛋 One-Step Automated Install:
 
