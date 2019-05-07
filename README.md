@@ -41,7 +41,7 @@ ssh-copy-id pi@raspberrypi.local
 
 Those who want to get started quickly and conveniently may install Pi-hole using the following command:
 
-#### `curl -L https://cdn.jsdelivr.net/gh/martinschilliger/Adelbach/auto_install/install.sh | bash`
+#### `curl -L https://raw.githubusercontent.com/martinschilliger/Adelbach/master/auto_install/install.sh | bash`
 
 ⚠️ [Piping to `bash` is controversial](https://pi-hole.net/2016/07/25/curling-and-piping-to-bash). It prevents you from [reading code that is about to run](https://github.com/martinschilliger/Adelbach/tree/master/auto_install/install.sh) on your system.
 
