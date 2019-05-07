@@ -503,10 +503,10 @@ if \$programname == 'adelbach' then stop" | $SUDO tee /etc/rsyslog.d/30-adelbach
 finalExports() {
     # Update variables in setupVars.conf file
     if [ -e "${setupVars}" ]; then
-        $SUDO sed -i.update.bak '/pivpnUser/d;/UNATTUPG/d;' "${setupVars}"
+        $SUDO sed -i.update.bak '/adelbachUser/d;/UNATTUPG/d;' "${setupVars}"
     fi
     {
-        echo "pivpnUser=${pivpnUser}"
+        echo "adelbachUser=${adelbachUser}"
         echo "UNATTUPG=${UNATTUPG}"
     } | $SUDO tee "${setupVars}" > /dev/null
 }
@@ -647,23 +647,36 @@ main() {
     # Install packages used by this installation script
     install_dependent_packages ADELBACH_DEPS[@]
 
-    # Display welcome dialogs
-    welcomeDialogs
+    if [[ ${useUpdateVars} == false ]]; then
+        # Display welcome dialogs
+        welcomeDialogs
 
-    # Choose the user for the ovpns
-    chooseUser
+        # Choose the user for the ovpns
+        chooseUser
 
-    # Ask if unattended-upgrades will be enabled
-    unattendedUpgrades
+        # Ask if unattended-upgrades will be enabled
+        unattendedUpgrades
 
-    # Clone/Update the repos
-    clone_or_update_repos
+        # Clone/Update the repos
+        clone_or_update_repos
 
-    # Install and log everything to a file
-    installAdelbach | tee ${tmpLog}
+        # Install and log everything to a file
+        installAdelbach | tee ${tmpLog}
 
-    echo "::: Install Complete..."
+        echo "::: Install Complete..."
+    else
+        # Source ${setupVars} for use in the rest of the functions.
+        source ${setupVars}
 
+        echo "::: Using User: $adelbachUser"
+        echo "${adelbachUser}" > /tmp/adelbachUSR
+        echo ":::"
+
+        # Clone/Update the repos
+        clone_or_update_repos
+
+        updateAdelbach | tee ${tmpLog}
+    fi
 
     #Move the install log into /etc/adelbach for storage
     $SUDO mv ${tmpLog} ${instalLogLoc}
