@@ -535,6 +535,7 @@ updateAdelbach() {
 displayFinalMessage() {
     # Final completion message to user
     whiptail --msgbox --backtitle "Make it so." --title "Installation Complete!" "The install log is in /etc/adelbach. Consider running sudo raspi-config for additional configurations (please don't touch WiFi!)." ${r} ${c}
+    whiptail --msgbox --backtitle "Make it so." --title "Installation Complete!" "Make shure the GoPro WiFi is up and running! For that connect via GoPro App. TODO: Make that via Bluetooth from the Pi also! :-)" ${r} ${c}
     if (whiptail --title "Reboot" --yesno --defaultno "It is strongly recommended you reboot after installation.  Would you like to reboot now?" ${r} ${c}); then
         whiptail --title "Rebooting" --msgbox "The system will now reboot." ${r} ${c}
         printf "\nRebooting system...\n"

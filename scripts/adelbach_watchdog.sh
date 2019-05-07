@@ -41,8 +41,7 @@ fi
 
 restartWifi () {
 	dhclient -v -r
-	# make really sure
-	killall dhclient
+
 	ifconfig $WLAN down
 	ifconfig $WLAN up
 }
