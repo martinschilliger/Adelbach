@@ -600,8 +600,6 @@ main() {
     fi
 
     # Install the packages (we do this first because we need whiptail)
-    addSoftwareRepo
-
     update_package_cache
 
     # Notify user of package availability
