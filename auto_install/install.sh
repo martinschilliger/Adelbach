@@ -288,6 +288,31 @@ notify_package_updates_available() {
 }
 
 
+install_dependent_packages() {
+    # Install packages passed in via argument array
+    # No spinner - conflicts with set -e
+    declare -a argArray1=("${!1}")
+
+    echo iptables-persistent iptables-persistent/autosave_v4 boolean true | $SUDO debconf-set-selections
+    echo iptables-persistent iptables-persistent/autosave_v6 boolean false | $SUDO debconf-set-selections
+
+    if command -v debconf-apt-progress &> /dev/null; then
+
+        # Use appropriate argument if the package manager uses https otherwise the installation will silently fail
+        if grep -q https /etc/apt/sources.list; then
+            $SUDO debconf-apt-progress -- ${PKG_INSTALL} -y apt-transport-https "${argArray1[@]}"
+        else
+            $SUDO debconf-apt-progress -- ${PKG_INSTALL} "${argArray1[@]}"
+        fi
+    else
+        for i in "${argArray1[@]}"; do
+            echo -n ":::    Checking for $i..."
+            $SUDO package_check_install "${i}" &> /dev/null
+            echo " installed!"
+        done
+    fi
+}
+
 unattendedUpgrades() {
     whiptail --msgbox --backtitle "Security Updates" --title "Unattended Upgrades" "Since this server will have at least one port open to the internet, it is recommended you enable unattended-upgrades.\nThis feature will check daily for security package updates only and apply them when necessary.\nIt will NOT automatically reboot the server so to fully apply some updates you should periodically reboot." ${r} ${c}
 
