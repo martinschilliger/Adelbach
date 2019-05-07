@@ -233,10 +233,10 @@ installScripts() {
     $SUDO chmod 0755 /opt/adelbach/streamer.sh
     $SUDO cp /etc/.adelbach/scripts/keepalive.sh /opt/adelbach/keepalive.sh
     $SUDO chmod 0755 /opt/adelbach/keepalive.sh
-    $SUDO cp /etc/.adelbach/scripts/wifi_watchdog.sh /opt/adelbach/wifi_watchdog.sh
-    $SUDO chmod 0755 /opt/adelbach/wifi_watchdog.sh
-    $SUDO cp /etc/.adelbach/scripts/wifi_watchdog_service.sh /etc/init.d/wifi_watchdog_service.sh
-    $SUDO chmod 0755 /etc/init.d/wifi_watchdog_service.sh
+    $SUDO cp /etc/.adelbach/scripts/adelbach_watchdog.sh /opt/adelbach/adelbach_watchdog.sh
+    $SUDO chmod 0755 /opt/adelbach/adelbach_watchdog.sh
+    $SUDO cp /etc/.adelbach/scripts/adelbach_watchdog_service.sh /etc/init.d/adelbach_watchdog_service.sh
+    $SUDO chmod 0755 /etc/init.d/adelbach_watchdog_service.sh
     $SUDO cp /etc/.adelbach/scripts/uninstall.sh /opt/adelbach/uninstall.sh
     $SUDO chmod 0755 /opt/adelbach/uninstall.sh
 
@@ -314,7 +314,7 @@ install_dependent_packages() {
 }
 
 unattendedUpgrades() {
-    whiptail --msgbox --backtitle "Security Updates" --title "Unattended Upgrades" "Since this server will have at least one port open to the internet, it is recommended you enable unattended-upgrades.\nThis feature will check daily for security package updates only and apply them when necessary.\nIt will NOT automatically reboot the server so to fully apply some updates you should periodically reboot." ${r} ${c}
+    whiptail --msgbox --backtitle "Security Updates" --title "Unattended Upgrades" "Since this server will be connected to the internet, it is recommended you enable unattended-upgrades.\nThis feature will check daily for security package updates only and apply them when necessary.\nIt will NOT automatically reboot the server so to fully apply some updates you should periodically reboot." ${r} ${c}
 
     if (whiptail --backtitle "Security Updates" --title "Unattended Upgrades" --yesno "Do you want to enable unattended upgrades of security patches to this server?" ${r} ${c}) then
         UNATTUPG="unattended-upgrades"
