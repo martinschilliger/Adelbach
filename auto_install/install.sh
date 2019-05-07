@@ -240,6 +240,8 @@ installScripts() {
     $SUDO chmod 0755 /opt/adelbach/keepalive.sh
     $SUDO cp /etc/.adelbach/scripts/wifi_watchdog.sh /opt/adelbach/wifi_watchdog.sh
     $SUDO chmod 0755 /opt/adelbach/wifi_watchdog.sh
+    $SUDO cp /etc/.adelbach/scripts/wifi_watchdog_service.sh /etc/init.d/wifi_watchdog_service.sh
+    $SUDO chmod 0755 /etc/init.d/wifi_watchdog_service.sh
     $SUDO cp /etc/.adelbach/scripts/uninstall.sh /opt/adelbach/uninstall.sh
     $SUDO chmod 0755 /opt/adelbach/uninstall.sh
 
