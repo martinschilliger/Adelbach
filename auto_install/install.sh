@@ -420,13 +420,13 @@ confAdelbach(){
     if CAMERA_PW=$(whiptail --title "Find camera password" --inputbox "Now we also need the password. You can find it also in Settings > Connections > Camera Info. It normally contains a word and a four numbers." ${r} ${c} "wheel2260" 3>&1 1>&2 2>&3)
     then
       # now write this down to the network configuration
-      $SUDO echo "
+      echo "
 
 network={
     ssid=\"${CAMERA_NAME}\"
     psk=\"${CAMERA_PW}\"
     priority=1
-}" >> /etc/wpa_supplicant/wpa_supplicant.conf
+}" | $SUDO tee -a /etc/wpa_supplicant/wpa_supplicant.conf > /dev/null
     else
       exit 1
     fi
