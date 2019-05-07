@@ -12,9 +12,6 @@ function streamFunc {
 
   /opt/adelbach/streamer.sh &
 
-  #Constantly check for wifi
-  /opt/adelbach/wifi_watchdog.sh &
-
 }
 
 function uninstallFunc {
