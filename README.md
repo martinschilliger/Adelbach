@@ -25,17 +25,17 @@
 
 5. Unmount the SD Card and put it into your Raspberry Pi, then turn it on. Make sure you have **Internet on the Ethernet port**, as WiFi is used to communicate with the GoPro Camera. SSH into it (default username `pi`, password `raspberry`). Head over to the [documentation](https://www.raspberrypi.org/documentation/remote-access/ssh/unix.md) if you need help.
 
-```shell
-ssh pi@raspberrypi.local
-# make shure to change the password
-passwd
-```
+    ```shell
+    ssh pi@raspberrypi.local
+    # make shure to change the password
+    passwd
+    ```
 
-5. For comfort and security reasons I always copy my id and remove the password 🤷🏻‍♂️.
+6. For comfort and security reasons I always copy my id and remove the password 🤷🏻‍♂️.
 
-```shell
-ssh-copy-id pi@raspberrypi.local
-```
+    ```shell
+    ssh-copy-id pi@raspberrypi.local
+    ```
 
 ## 🛋 One-Step Automated Install:
 
