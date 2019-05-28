@@ -57,16 +57,19 @@ stopAdelbach(){
 }
 
 while [ 1 ]; do
-  curl -sSf "http://10.5.5.9/gp/gpControl/info" >> /dev/null & wait $!
+  curl --max-time 2 -sSf "http://10.5.5.9/gp/gpControl/info" -o /dev/null & wait $!
 	if [ $? != 0 ]; then
 		log "Could not find GoPro. Attempting restart WiFi and ${SCRIPT}"
     stopAdelbach
 		restartWifi
+    sleep 5 # we give it 5 seconds
+    startAdelbach
   else
   	pgrep -n ffmpeg >> /dev/null
     if [ "$?" != 0 ]; then # looks inverse, but works. Don't know why…
       log "GoPro is running, but ffmpeg not. Attempting restart ${SCRIPT} only."
       stopAdelbach
+      sleep 5 # we give it 5 seconds
       startAdelbach
     fi
 	fi
