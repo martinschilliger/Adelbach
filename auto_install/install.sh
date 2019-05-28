@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# Adelbach: Use your GoPro with a RaspberryPi for RTMP streaming – reliable
 # Install script is heavily inspired by pi-hole.net and PiVPN. Thanks for the amazing work!
-# Please see LICENSE file for your rights under this license.
-#
 
 # -e option instructs bash to immediately exit if any command [1] has a non-zero exit status
 # We do not want users to end up with a partially working install, so we exit the script
