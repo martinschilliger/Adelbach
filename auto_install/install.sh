@@ -13,7 +13,7 @@ set -e
 
 tmpLog="/tmp/adelbach-install.log"
 instalLogLoc="/etc/adelbach/install.log"
-setupVars=/etc/adelbach/setupVars.conf
+setupVars="/etc/adelbach/setupVars.conf"
 useUpdateVars=false
 
 ### PKG Vars ###
