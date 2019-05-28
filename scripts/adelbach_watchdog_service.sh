@@ -6,9 +6,10 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Adelbach Watchdog service for Wi-Fi
-# Description:       This script ping the router every N seconds and if it fails
-#                    tries to restore the network connection. Depending on this it
-#                    starts and stops Adelbach RTMP Straming
+# Description:       This script tries to load the GoPro default URL every
+#                    N seconds and if it fails it tries to restore the network
+#                    connection. Depending on this it starts and stops Adelbach
+#                    RTMP streaming service
 ### END INIT INFO
 # this file goes in /etc/init.d/
 # Author: Giulio Montagner

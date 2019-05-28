@@ -2,8 +2,6 @@
 
 . /etc/adelbach/streamer.conf
 
-#Start streaming to rtmp with custom URL
-
 ffmpeg \
   -thread_queue_size 2048 -fflags nobuffer -f:v mpegts -probesize 65536 \
   -i "$SOURCE" -deinterlace -c:v libx264 -r $FPS -g $(($FPS * 2)) -b:v $VBR \
