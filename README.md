@@ -47,9 +47,9 @@ Those who want to get started quickly and conveniently may install Pi-hole using
 
 ## 😔 Open Tasks
 
-[ ] Right now Adelbach just doesn't work as it should… 😂
-[ ] Restarting is quite fuzzy. It should kill the processes started before
-[ ] Adelbach could do more. For example the configuration of ffmpeg could be fixed with different camera profiles or different Raspberry Pi Performances. If you are into optimization, have a look at [KonradIT's nice overview](https://github.com/KonradIT/goprowifihack/blob/master/HERO4/WifiCommands.md#streaming-tweaks) where to start tweaking.
+- [ ] Right now Adelbach just doesn't work as it should… 😂
+- [ ] Restarting is quite fuzzy. It should kill the processes started before
+- [ ] Adelbach could do more. For example the configuration of ffmpeg could be fixed with different camera profiles or different Raspberry Pi Performances. If you are into optimization, have a look at [KonradIT's nice overview](https://github.com/KonradIT/goprowifihack/blob/master/HERO4/WifiCommands.md#streaming-tweaks) where to start tweaking.
 
 # 💁🏻 See also
 
