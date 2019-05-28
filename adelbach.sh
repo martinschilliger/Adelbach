@@ -20,6 +20,12 @@ function killFunc {
   exit 1
 }
 
+function listFunc {
+  echo "Output of jobs:"
+  echo $(jobs -l)
+  exit 1
+}
+
 function uninstallFunc {
   sudo /opt/adelbach/uninstall.sh
   exit 1
@@ -44,6 +50,7 @@ function helpFunc {
   echo "::: Commands:"
   echo ":::  -s, stream       Start running stream"
   echo ":::  -k, kill         Stop running stream"
+  echo ":::  -l, list         List the processes started by Adelbach"
   echo ":::  -c, config       Show the configuration file"
   echo ":::  -h, help         Show this help dialog"
   echo ":::  -u, uninstall    Uninstall Adelbach from your system!"
@@ -58,6 +65,7 @@ fi
 case "$1" in
 "-s" | "stream"             ) streamFunc;;
 "-k" | "kill"               ) killFunc;;
+"-l" | "list"               ) listFunc;;
 "-c" | "config"             ) printconfigFunc;;
 "-h" | "help"               ) helpFunc;;
 "-u" | "uninstall"          ) uninstallFunc;;
