@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Adelbach: Uninstall Script
 
 # Must be root to uninstall

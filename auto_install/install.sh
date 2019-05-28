@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Adelbach: Use your GoPro with a RaspberryPi for RTMP streaming – reliable
 # Install script is heavily inspired by pi-hole.net and PiVPN. Thanks for the amazing work!

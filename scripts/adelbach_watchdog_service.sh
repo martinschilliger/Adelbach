@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 ### BEGIN INIT INFO
 # Provides:          adelbach_watchdog
 # Required-Start:    $remote_fs $syslog
