@@ -14,11 +14,9 @@ function streamFunc {
 }
 
 function killFunc {
-  echo "Called adelbach kill. Trying to kill all adelbach-related processes including ffmpeg."
-  pkill -f "/bin/bash /opt/adelbach/keepalive.sh" > /dev/null &
-  pkill -f "sleep 2.5" > /dev/null &
-  pkill -x ffmpeg > /dev/null &
-  pkill -x adelbach > /dev/null &
+  echo "Called adelbach kill. Trying to kill all adelbach-related processes including ffmpeg. Output of jobs:"
+  echo $(jobs)
+  kill $(jobs -p)
   exit 1
 }
 
