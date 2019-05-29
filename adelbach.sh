@@ -17,13 +17,6 @@ function streamFunc {
 
 function killFunc {
   echo "Called adelbach kill. Trying to kill all adelbach-related processes including ffmpeg. Output of jobs:"
-  echo $(jobs)
-  kill $(jobs -p)
-  exit 1
-}
-
-function listFunc {
-  echo "Output of jobs:"
   sudo pkill -f "/bin/bash /opt/adelbach/keepalive.sh" > /dev/null
   sudo pkill -f "sleep 2.5" > /dev/null
   sudo pkill -x ffmpeg > /dev/null
@@ -55,7 +48,6 @@ function helpFunc {
   echo "::: Commands:"
   echo ":::  -s, stream       Start running stream"
   echo ":::  -k, kill         Stop running stream"
-  echo ":::  -l, list         List the processes started by Adelbach"
   echo ":::  -c, config       Show the configuration file"
   echo ":::  -h, help         Show this help dialog"
   echo ":::  -u, uninstall    Uninstall Adelbach from your system!"
@@ -70,7 +62,6 @@ fi
 case "$1" in
 "-s" | "stream"             ) streamFunc;;
 "-k" | "kill"               ) killFunc;;
-"-l" | "list"               ) listFunc;;
 "-c" | "config"             ) printconfigFunc;;
 "-h" | "help"               ) helpFunc;;
 "-u" | "uninstall"          ) uninstallFunc;;
