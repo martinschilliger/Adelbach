@@ -7,26 +7,25 @@ function streamFunc {
   #Refresh GoPro real-time A/V stream
   curl -sSf "http://${GOPRO_IP}/gp/gpControl/execute?p1=gpStream&a1=proto_v2&c1=restart" -o /dev/null
 
+  # create directory for pid files
+  mkdir -p /var/run/adelbach
+
   /opt/adelbach/streamer.sh &
-  printf "PID of streamer.sh should be ${!}"
+  echo ${!} >> /var/run/adelbach/streamer.pid
 
   #Send GoPro keep-alive packets
   /opt/adelbach/keepalive.sh &
-  printf "PID of keepalive.sh should be ${!}"
+  echo ${!} >> /var/run/adelbach/keepalive.pid
 }
 
 function killFunc {
-  echo "Called adelbach kill. Trying to kill all adelbach-related processes including ffmpeg. Output of jobs:"
-  sudo pkill -f "/bin/bash /opt/adelbach/keepalive.sh" > /dev/null
-  sudo pkill -f "sleep 2.5" > /dev/null
-  sudo pkill -x ffmpeg > /dev/null
-  sudo pkill -x adelbach > /dev/null
-  exit 1
+  echo "Called adelbach kill. Trying to kill all adelbach-related processes including ffmpeg."
+  sudo pkill -F /var/run/adelbach/streamer.pid
+  sudo pkill -F /var/run/adelbach/keepalive.pid
 }
 
 function uninstallFunc {
   sudo /opt/adelbach/uninstall.sh
-  exit 1
 }
 
 function versionFunc {
