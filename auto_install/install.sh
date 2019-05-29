@@ -515,12 +515,14 @@ installAdelbach() {
     installScripts
     confLogging
     confAdelbach
+    finalExports
 }
 
 updateAdelbach() {
     stopServices
     confUnattendedUpgrades
     installScripts
+    finalExports #re-export setupVars.conf to account for any new vars added in new versions
 }
 
 
