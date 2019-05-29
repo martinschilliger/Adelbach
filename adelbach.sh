@@ -5,12 +5,14 @@
 
 function streamFunc {
   #Refresh GoPro real-time A/V stream
-  curl "http://${GOPRO_IP}/gp/gpControl/execute?p1=gpStream&a1=proto_v2&c1=restart"
+  curl -sSf "http://${GOPRO_IP}/gp/gpControl/execute?p1=gpStream&a1=proto_v2&c1=restart" -o /dev/null
 
   /opt/adelbach/streamer.sh &
+  printf "PID of streamer.sh should be ${!}"
 
   #Send GoPro keep-alive packets
   /opt/adelbach/keepalive.sh &
+  printf "PID of keepalive.sh should be ${!}"
 }
 
 function killFunc {
@@ -22,7 +24,10 @@ function killFunc {
 
 function listFunc {
   echo "Output of jobs:"
-  echo $(jobs -l)
+  sudo pkill -f "/bin/bash /opt/adelbach/keepalive.sh" > /dev/null
+  sudo pkill -f "sleep 2.5" > /dev/null
+  sudo pkill -x ffmpeg > /dev/null
+  sudo pkill -x adelbach > /dev/null
   exit 1
 }
 
