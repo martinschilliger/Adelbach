@@ -17,6 +17,7 @@ for p in `ps h -o pid -C $WHAT`; do
 	fi
 done
 
+# Read variables in adelbach config file
 . /etc/adelbach/streamer.conf
 
 # source configuration
@@ -57,7 +58,7 @@ stopAdelbach(){
 }
 
 while [ 1 ]; do
-  curl --max-time 2 -sSf "http://10.5.5.9/gp/gpControl/info" -o /dev/null & wait $!
+  curl --max-time 2 -sSf "http://${GOPRO_IP}/gp/gpControl/info" -o /dev/null & wait $!
 	if [ $? != 0 ]; then
 		log "Could not find GoPro. Attempting restart WiFi and ${SCRIPT}"
     stopAdelbach
