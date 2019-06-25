@@ -57,10 +57,15 @@ startAdelbach
 while [ 1 ]; do
   curl --max-time 2 -sSf "http://${GOPRO_IP}/gp/gpControl/info" -o /dev/null & wait $!
 	if [ $? != 0 ]; then
-		log "Could not find GoPro. Attempting restart ${SCRIPT}"
-    stopAdelbach
-    sleep 5 # we give it 5 seconds
-    startAdelbach
+    log "Could not connect to GoPro over WiFi. Is the WiFi up and running?"
+    # Ok, WiFi is running. Otherwise we have to wait for the camera to come up anyway
+    pgrep -n ffmpeg >> /dev/null
+    if [ $? != 0 ]; then
+      log "GoPro is running, but ffmpeg not. Attempting to restart ${SCRIPT}."
+      stopAdelbach
+      sleep 10 # we give it 10 seconds
+      startAdelbach
+    fi
   fi
 	sleep $CHECK_INTERVAL
 done

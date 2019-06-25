@@ -55,6 +55,7 @@ do_start() {
 # Function that stops the daemon/service
 #
 do_stop() {
+  # TODO: This doesn't work at all!
 	# Return
 	#   0 if daemon has been stopped
 	#   1 if daemon was already stopped
