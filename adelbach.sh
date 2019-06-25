@@ -2,26 +2,29 @@
 
 . /etc/adelbach/streamer.conf
 
+USERID="$(id -u)"
+PIDPATH="/var/run/user/${USERID}/adelbach"
+
 
 function streamFunc {
   #Refresh GoPro real-time A/V stream
   curl -sSf "http://${GOPRO_IP}/gp/gpControl/execute?p1=gpStream&a1=proto_v2&c1=restart" -o /dev/null
 
   # create directory for pid files
-  mkdir -p /var/run/adelbach
+  mkdir -p ${PIDPATH}
 
   /opt/adelbach/streamer.sh &
-  echo ${!} >> /var/run/adelbach/streamer.pid
+  echo ${!} >> ${PIDPATH}/streamer.pid
 
   #Send GoPro keep-alive packets
   /opt/adelbach/keepalive.sh &
-  echo ${!} >> /var/run/adelbach/keepalive.pid
+  echo ${!} >> ${PIDPATH}/keepalive.pid
 }
 
 function killFunc {
   echo "Called adelbach kill. Trying to kill all adelbach-related processes including ffmpeg."
-  sudo pkill -F /var/run/adelbach/streamer.pid
-  sudo pkill -F /var/run/adelbach/keepalive.pid
+  sudo pkill -F ${PIDPATH}/streamer.pid
+  sudo pkill -F ${PIDPATH}/keepalive.pid
 }
 
 function uninstallFunc {
