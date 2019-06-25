@@ -53,7 +53,8 @@ stopAdelbach(){
 
 # initial start
 curl --max-time 2 -sSf "http://${GOPRO_IP}/gp/gpControl/info" -o /dev/null & wait $!
-if [ $? != 0 ]; then
+if [ $? = 0 ]; then
+  # Ok, camera is here, start streaming
   startAdelbach
 fi
 
