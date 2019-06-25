@@ -37,15 +37,9 @@ log(){
 if [ ! "$CHECK_INTERVAL" ]; then
 	log "No check interval set!"
 	exit 1
-else sleep $CHECK_INTERVAL
+else
+  sleep $CHECK_INTERVAL
 fi
-
-restartWifi () {
-	dhclient -v -r
-
-	ifconfig $WLAN down
-	ifconfig $WLAN up
-}
 
 startAdelbach(){
   log "Starting ${SCRIPT}"
@@ -60,19 +54,10 @@ stopAdelbach(){
 while [ 1 ]; do
   curl --max-time 2 -sSf "http://${GOPRO_IP}/gp/gpControl/info" -o /dev/null & wait $!
 	if [ $? != 0 ]; then
-		log "Could not find GoPro. Attempting restart WiFi and ${SCRIPT}"
+		log "Could not find GoPro. Attempting restart ${SCRIPT}"
     stopAdelbach
-		restartWifi
     sleep 5 # we give it 5 seconds
     startAdelbach
-  else
-  	pgrep -n ffmpeg >> /dev/null
-    if [ "$?" != 0 ]; then # looks inverse, but works. Don't know why…
-      log "GoPro is running, but ffmpeg not. Attempting restart ${SCRIPT} only."
-      stopAdelbach
-      sleep 5 # we give it 5 seconds
-      startAdelbach
-    fi
-	fi
+  fi
 	sleep $CHECK_INTERVAL
 done
