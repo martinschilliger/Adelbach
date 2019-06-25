@@ -221,8 +221,6 @@ installScripts() {
         $SUDO chown "$adelbachUser":root /opt/adelbach
         $SUDO chmod u+srwx /opt/adelbach
     fi
-    $SUDO cp /etc/.adelbach/scripts/streamer.sh /opt/adelbach/streamer.sh
-    $SUDO chmod 0755 /opt/adelbach/streamer.sh
     $SUDO cp /etc/.adelbach/scripts/keepalive.sh /opt/adelbach/keepalive.sh
     $SUDO chmod 0755 /opt/adelbach/keepalive.sh
     $SUDO cp /etc/.adelbach/scripts/adelbach_watchdog.sh /opt/adelbach/adelbach_watchdog.sh

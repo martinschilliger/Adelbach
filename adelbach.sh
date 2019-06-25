@@ -13,8 +13,20 @@ function streamFunc {
   # create directory for pid files
   mkdir -p ${PIDPATH}
 
-  /opt/adelbach/streamer.sh &
-  echo ${!} >> ${PIDPATH}/streamer.pid
+  ffmpeg \
+    -thread_queue_size 2048 -fflags nobuffer -f:v mpegts -probesize 65536 \
+    -i "$SOURCE" -deinterlace -c:v libx264 -r $FPS -g $(($FPS * 2)) -b:v $VBR \
+    -c:a aac -ar 44100 -ac $AUDIO_CHANNELS -b:a $(($AUDIO_CHANNELS * 64))k \
+    -preset $QUAL -flags +global_header \
+    -maxrate 1.5M -bufsize 3M \
+    -loglevel $LOGLEVEL \
+    -f flv "$RTMP_URL" &
+
+  #-tune zerolatency
+  # -pix_fmt yuv420p
+  # -vf scale=-1:480
+
+  echo ${!} >> ${PIDPATH}/ffmpeg.pid
 
   #Send GoPro keep-alive packets
   /opt/adelbach/keepalive.sh &
@@ -23,8 +35,10 @@ function streamFunc {
 
 function killFunc {
   echo "Called adelbach kill. Trying to kill all adelbach-related processes including ffmpeg."
-  sudo pkill -F ${PIDPATH}/streamer.pid
+  sudo pkill -F ${PIDPATH}/ffmpeg.pid
+  rm ${PIDPATH}/ffmpeg.pid
   sudo pkill -F ${PIDPATH}/keepalive.pid
+  rm ${PIDPATH}/keepalive.pid
 }
 
 function uninstallFunc {
