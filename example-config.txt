@@ -12,7 +12,7 @@ VBR="1M"
 FPS="24"
 QUAL="ultrafast" # veryfast, medium
 AUDIO_CHANNELS=1
-LOGLEVEL="quiet"
+LOGLEVEL="quiet" # https://ffmpeg.org/ffmpeg.html#Generic-options => loglevel
 
 SERVER_KEY="XXXX-XXXX-XXXX-XXXX"
 SERVER_URL="rtmp://a.rtmp.youtube.com/live2"
