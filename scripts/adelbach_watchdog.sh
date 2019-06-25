@@ -52,7 +52,10 @@ stopAdelbach(){
 }
 
 # initial start
-startAdelbach
+curl --max-time 2 -sSf "http://${GOPRO_IP}/gp/gpControl/info" -o /dev/null & wait $!
+if [ $? != 0 ]; then
+  startAdelbach
+fi
 
 while [ 1 ]; do
   curl --max-time 2 -sSf "http://${GOPRO_IP}/gp/gpControl/info" -o /dev/null & wait $!
